@@ -1,102 +1,71 @@
 package main
 
-<<<<<<< HEAD
-import "log"
-
-///
-/// STUDENT
-///
-
-type Student struct {
-	Name      string
-	Age       int
-	Grade     int
-	ID        int
-	Classroom int
-	Marks     []int
-}
-
-func (s Student) calculateGrade() int {
-	return (s.Marks[0] + s.Marks[1]) / 2
-}
-
-func (s *Student) updateGrade() {
-	s.Grade = s.calculateGrade()
-}
-
-///
-/// OTHER
-///
-
-func assignClassroom(s *Student) {
-	s.Classroom = 2
-}
-
-///
-/// MAIN
-///
-
-func main() {
-	jack := Student{Name: "jack"}
-	jack.updateGrade()
-	log.Println(jack.Classroom)
-
-	assignClassroom(jack)
-	//jack.Classroom = assignClassroom(jack)
-
-	// var anna *Student
-	// anna = &Student{}
-	// anna.Name = "Anna"
-}
-
+import "fmt"
 // Homework:
 // 1. Create new struct vehicle with some values (engineStatus = string)
 // 2. Create method fixEngine which will update the status
 // 3. Create a function which changes one engine of one vehicle to another (kind of like a swap)
 // 4. Create a function which finds the best vehicle in a list of vehicles
-=======
-import (
-    "fmt"
-)
 
-func main() {
-    stringList := []string{"spaceship", "sugar", "football", "sun", "paper"}
-    fmt.Println(filterWords(stringList, "su"))
+type Vehicle struct{
+    Brand string
+    Year int
+    EngineStatus string
+    Miles int
 }
 
-func filterWords(stringList []string, prefix string) []string {
-    newStringList := []string{}
 
-    // Outer loop: go through each word in the list
-    for _, word := range stringList {
 
-        // 2. [KEY TO PREVENT PANIC]
-        // Make sure prefix is not longer than the word
-        // (otherwise word[i] would panic because we go out of range)
-        if len(prefix) > len(word) {
-            continue
-        }
+func (v *Vehicle) fixEngine( fix string)  {
 
-        match := true
+    if v.EngineStatus != "Fixed"{
+        fix = v.EngineStatus
+        fmt.Println("New engine status is", fix)
+    } else{
+        fmt.Println("Engine status is already", v.EngineStatus)
+    }
 
-        // 1. Nested for loop: go through each character of the prefix
-        for i := 0; i < len(prefix); i++ {
+}
 
-            // 1.2. Compare each character of prefix with the word
-            if word[i] != prefix[i] {
-                match = false
-                break // stop checking this word
-            }
-        }
+func changeEngine(vehicleOne, vehicleTwo *Vehicle) {
+    vehicleThree:= vehicleOne.EngineStatus
+    vehicleOne.EngineStatus = vehicleTwo.EngineStatus
+    vehicleTwo.EngineStatus = vehicleThree
 
-        // If all prefix characters matched, add word to results
-        if match {
-            newStringList = append(newStringList, word)
+
+}
+
+func findBestCar(vehicle []Vehicle) Vehicle{
+   
+    bestCar:= vehicle[0]
+    for _, v := range vehicle{
+        if v.Year > bestCar.Year{
+            bestCar = v
         }
     }
 
-    return newStringList
+ 
+    return bestCar
 }
 
+func main() {
 
->>>>>>> 5541719133f409ba1a5d98d4a1c5c44ea027da6c
+    car1:= Vehicle{"Toyota", 2025, "Broken", 20000}
+    car2:= Vehicle{"Ford", 2024, "Fixed", 30000}
+
+    car1.fixEngine("Broken")
+    changeEngine(&car1, &car2)
+    fmt.Println("New engine status for Car 1 is", car1.EngineStatus)
+    fmt.Println("New engine status for Car 2 is", car2.EngineStatus)
+
+ 
+    testCars:= []Vehicle{car1,car2}
+    result:= findBestCar(testCars)
+    fmt.Printf("The best car is %s as it is the most recent", result.Brand)
+    
+}
+// Homework:
+// 1. Create new struct vehicle with some values (engineStatus = string)
+// 2. Create method fixEngine which will update the status
+// 3. Create a function which changes one engine of one vehicle to another (kind of like a swap)
+// 4. Create a function which finds the best vehicle in a list of vehicles
